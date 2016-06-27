@@ -24,55 +24,87 @@ let log = console.log;
 let tasks = [
     () => { log("First"); }
   , cb => {
-        log("Wait a second");
-        setTimeout(() => cb(), 1000);
+        setTimeout(() => {
+            log("Waited a second");
+            cb();
+        }, 1000);
     }
   , cb => {
-        log("Wait another second");
-        setTimeout(() => cb(), 1000);
+        setTimeout(() => {
+            log("Waited another second");
+            cb();
+        }, 1000);
     }
   , [
-        () => { log("First"); }
+        () => { log("First in nested group"); }
       , {
             parallel: [
                cb => {
-                    log("In parallel");
-                    setTimeout(() => cb(), 1000);
+                    setTimeout(() => {
+                        log("In parallel 1");
+                        cb();
+                    }, 1000);
                 }
               , cb => {
-                    log("In parallel");
-                    setTimeout(() => cb(), 1000);
+                    setTimeout(() => {
+                        log("Second one in parallel, but I'll be faster.");
+                        cb();
+                    }, 100);
                 }
             ]
         }
       , {
             parallel: [
                cb => {
-                    log("Wait a second");
-                    setTimeout(() => cb(), 1000);
+                    setTimeout(() => {
+                        log("Waited a second in another parallel group.");
+                        cb();
+                    }, 1000);
                 }
               , cb => {
-                    log("Wait another second");
-                    setTimeout(() => cb(), 1000);
+                    setTimeout(() => {
+                        log("Waited 100ms ");
+                        cb();
+                    }, 100);
                 }
             ]
         }
     ]
+  , () => { log("Almost done."); }
+  , cb => {
+        setTimeout(() => {
+            log("Last");
+            cb();
+        }, 1000);
+    }
 ];
+
+asyncer(tasks, err => {
+    console.log("Everything was done.");
+    // =>
+    // First
+    // Waited a second
+    // Waited another second
+    // First in nested group
+    // Second one in parallel, but I'll be faster.
+    // In parallel 1
+    // Waited 100ms
+    // Waited a second in another parallel group.
+    // Almost done.
+    // Last
+    // Everything was done.
+});
 ```
 
 ## :memo: Documentation
 
 
-### `asyncer(a, b)`
+### `asyncer(tasks, cb)`
 Run groups of (a)sync functions.
 
 #### Params
-- **Number** `a`: Param descrpition.
-- **Number** `b`: Param descrpition.
-
-#### Return
-- **Number** Return description.
+- **Array|Object** `tasks`: The tasks to run in parallel or one by one.
+- **Function** `cb`: The callback function.
 
 
 

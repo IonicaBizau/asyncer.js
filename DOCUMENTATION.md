@@ -2,13 +2,10 @@
 
 You can see below the API reference of this module.
 
-### `asyncer(a, b)`
+### `asyncer(tasks, cb)`
 Run groups of (a)sync functions.
 
 #### Params
-- **Number** `a`: Param descrpition.
-- **Number** `b`: Param descrpition.
-
-#### Return
-- **Number** Return description.
+- **Array|Object** `tasks`: The tasks to run in parallel or one by one.
+- **Function** `cb`: The callback function.
 
