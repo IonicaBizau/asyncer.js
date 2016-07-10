@@ -38,6 +38,7 @@
   },
   "homepage": "https://github.com/IonicaBizau/asyncer#readme",
   "dependencies": {
+    "fn-result": "^1.0.4",
     "noop6": "^1.0.2",
     "one-by-one": "^3.2.1",
     "same-time": "^2.3.1",
