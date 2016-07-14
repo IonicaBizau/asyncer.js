@@ -5,24 +5,34 @@ const asyncer = require("../lib");
 let log = console.log;
 
 let tasks = [
+    // Execute this sync function
     () => { log("First"); }
+
+    // *Then* execute an async one
   , cb => {
         setTimeout(() => {
             log("Waited a second");
             cb();
         }, 1000);
     }
+
+    // Another async function
   , cb => {
         setTimeout(() => {
             log("Waited another second");
             cb();
         }, 1000);
     }
+
+    // *Then* Execute the following group
   , [
+        // ...containing a sync function
         () => { log("First in nested group"); }
       , {
+            // ...and a group of parallel functions
+            // to run in the same time
             parallel: [
-               cb => {
+                cb => {
                     setTimeout(() => {
                         log("In parallel 1");
                         cb();
@@ -36,6 +46,9 @@ let tasks = [
                 }
             ]
         }
+
+        // After that group of parallel function, execute
+        // this group of parallel functions
       , {
             parallel: [
                cb => {
@@ -53,7 +66,11 @@ let tasks = [
             ]
         }
     ]
+
+    // Run another sync function
   , () => { log("Almost done."); }
+
+    // An another async one
   , cb => {
         setTimeout(() => {
             log("Last");
@@ -62,6 +79,7 @@ let tasks = [
     }
 ];
 
+// Pass the array above to asyncer
 asyncer(tasks, err => {
     console.log("Everything was done.");
     // =>

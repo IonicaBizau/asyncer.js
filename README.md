@@ -1,4 +1,6 @@
 
+[![asyncer](http://i.imgur.com/EzEzAqI.png)](#)
+
 # asyncer
 
  [![PayPal](https://img.shields.io/badge/%24-paypal-f39c12.svg)][paypal-donations] [![AMA](https://img.shields.io/badge/ask%20me-anything-1abc9c.svg)](https://github.com/IonicaBizau/ama) [![Version](https://img.shields.io/npm/v/asyncer.svg)](https://www.npmjs.com/package/asyncer) [![Downloads](https://img.shields.io/npm/dt/asyncer.svg)](https://www.npmjs.com/package/asyncer) [![Get help on Codementor](https://cdn.codementor.io/badges/get_help_github.svg)](https://www.codementor.io/johnnyb?utm_source=github&utm_medium=button&utm_term=johnnyb&utm_campaign=github)
@@ -22,24 +24,34 @@ const asyncer = require("asyncer");
 let log = console.log;
 
 let tasks = [
+    // Execute this sync function
     () => { log("First"); }
+
+    // *Then* execute an async one
   , cb => {
         setTimeout(() => {
             log("Waited a second");
             cb();
         }, 1000);
     }
+
+    // Another async function
   , cb => {
         setTimeout(() => {
             log("Waited another second");
             cb();
         }, 1000);
     }
+
+    // *Then* Execute the following group
   , [
+        // ...containing a sync function
         () => { log("First in nested group"); }
       , {
+            // ...and a group of parallel functions
+            // to run in the same time
             parallel: [
-               cb => {
+                cb => {
                     setTimeout(() => {
                         log("In parallel 1");
                         cb();
@@ -53,6 +65,9 @@ let tasks = [
                 }
             ]
         }
+
+        // After that group of parallel function, execute
+        // this group of parallel functions
       , {
             parallel: [
                cb => {
@@ -70,7 +85,11 @@ let tasks = [
             ]
         }
     ]
+
+    // Run another sync function
   , () => { log("Almost done."); }
+
+    // An another async one
   , cb => {
         setTimeout(() => {
             log("Last");
@@ -79,6 +98,7 @@ let tasks = [
     }
 ];
 
+// Pass the array above to asyncer
 asyncer(tasks, err => {
     console.log("Everything was done.");
     // =>
