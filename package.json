@@ -1,5 +1,5 @@
 {
-  "name": "asyncer",
+  "name": "asyncer.js",
   "description": "Run groups of (a)sync functions.",
   "keywords": [
     "asyncer",
@@ -31,12 +31,12 @@
   ],
   "repository": {
     "type": "git",
-    "url": "git+ssh://git@github.com/IonicaBizau/asyncer.git"
+    "url": "git+ssh://git@github.com/IonicaBizau/asyncer.js.git"
   },
   "bugs": {
-    "url": "https://github.com/IonicaBizau/asyncer/issues"
+    "url": "https://github.com/IonicaBizau/asyncer.js/issues"
   },
-  "homepage": "https://github.com/IonicaBizau/asyncer#readme",
+  "homepage": "https://github.com/IonicaBizau/asyncer.js#readme",
   "dependencies": {
     "fn-result": "^1.0.4",
     "noop6": "^1.0.2",

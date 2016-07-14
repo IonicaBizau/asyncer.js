@@ -61,6 +61,6 @@ Thanks! :sweat_smile:
 
 
 
-[1]: https://github.com/IonicaBizau/asyncer/issues
+[1]: https://github.com/IonicaBizau/asyncer.js/issues
 
 [2]: https://github.com/IonicaBizau/code-style
