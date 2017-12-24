@@ -12,7 +12,11 @@
 ## :cloud: Installation
 
 ```sh
-$ npm i --save asyncer.js
+# Using npm
+npm install --save asyncer.js
+
+# Using yarn
+yarn add asyncer.js
 ```
 
 
